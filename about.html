@@ -96,6 +96,24 @@
     }
     .nav-search::placeholder { color: rgba(255,255,255,.3); }
     .nav-search:focus { border-color: var(--gold); }
+    /* ── MOBILE NAV ── */
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0; color: #ccc; line-height: 0; }
+    .nav-toggle:hover, .nav-toggle:focus { color: var(--gold); outline: none; }
+    .nav-toggle .bar { display: block; width: 22px; height: 2px; background: currentColor; margin: 5px 0; transition: transform .25s, opacity .25s; }
+    nav.primary.nav-open .nav-toggle .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.primary.nav-open .nav-toggle .bar:nth-child(2) { opacity: 0; }
+    nav.primary.nav-open .nav-toggle .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media (max-width: 700px) {
+      nav.primary { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
+      .nav-toggle { display: block; padding: .85rem 1.2rem; }
+      nav.primary ul { display: none; width: 100%; flex-direction: column; padding: .3rem 0 .8rem; margin: 0; max-width: 100%; border-top: 1px solid rgba(245,184,0,.2); }
+      nav.primary.nav-open ul { display: flex; }
+      nav.primary ul li.spacer { display: none; }
+      nav.primary ul li a { padding: .7rem 1.3rem; border-bottom: none; border-left: 3px solid transparent; }
+      nav.primary ul li a:hover, nav.primary ul li a.active { border-left-color: var(--gold); border-bottom-color: transparent; }
+      nav.primary ul li:last-child { padding: .3rem 1.3rem .8rem; }
+      .nav-search { width: 100% !important; }
+    }
 
     /* ══════════════════════════════════════
        MISSION HERO
@@ -426,6 +444,7 @@
 
 <!-- NAV -->
 <nav class="primary" aria-label="Main navigation">
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
   <ul>
     <li><a href="index.html">Home</a></li>
     <li><a href="scholarship.html">Scholarship</a></li>
@@ -699,6 +718,11 @@
   document.querySelector('.nav-search') && document.querySelector('.nav-search').addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && this.value.trim())
       location.href = 'scholarship.html?q=' + encodeURIComponent(this.value.trim());
+  });
+  document.getElementById('navToggle')?.addEventListener('click', function() {
+    const nav = this.closest('nav');
+    const open = nav.classList.toggle('nav-open');
+    this.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   });
 </script>
 </body>
