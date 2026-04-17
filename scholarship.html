@@ -390,6 +390,7 @@
   }
 
   // Filter to a specific issue when coming from issues.html
+  let issueFiltered = false;
   if (urlVol && urlIss) {
     const v = parseInt(urlVol), i = parseInt(urlIss);
     const origAll = [...(typeof ARTICLES !== 'undefined' ? ARTICLES : []), ...getLocalPublished()];
@@ -413,11 +414,11 @@
             <div class="ac-actions">${actionBtns}</div>
           </div>`;
       }).join('');
-      return; // skip normal renderArticles
+      issueFiltered = true;
     }
   }
 
-  renderArticles();
+  if (!issueFiltered) renderArticles();
 
   // ── NAV SEARCH ────────────────────────────────────────────────────────────
   document.querySelectorAll('.nav-search').forEach(el => {
