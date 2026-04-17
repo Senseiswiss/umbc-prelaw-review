@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UMBC Pre-Law Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:    #F5B800;
+      --gold-dk: #D4A000;
+      --black:   #0A0A0A;
+      --charcoal:#1A1A1A;
+      --red:     #C8102E;
+      --white:   #FFFFFF;
+      --off-white: #F8F5EF;
+      --muted:   #6B6B6B;
+      --border:  #E0D9CE;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    /* ── TOP UTILITY BAR ── */
+    .utility-bar {
+      background: #faf8f4;
+      color: #888;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.45rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .utility-bar a { color: #888; text-decoration: none; }
+    .utility-bar a:hover { color: var(--gold-dk); }
+    .utility-bar .sep { margin: 0 0.8rem; opacity: 0.4; }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: #ffffff;
+      padding: 1.6rem 2rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid var(--gold);
+    }
+    .masthead-brand {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      text-decoration: none;
+    }
+    .masthead-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+    }
+    .masthead-text {}
+    .masthead-text .pre { font-family: 'Inter', sans-serif; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.15rem; }
+    .masthead-text h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--black);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .masthead-text h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .masthead-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .btn { display: inline-block; padding: 0.55rem 1.3rem; font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-radius: 2px; cursor: pointer; transition: all 0.2s; border: none; }
+    .btn-gold { background: var(--gold); color: var(--black); }
+    .btn-gold:hover { background: var(--gold-dk); }
+    .btn-outline { background: transparent; color: var(--black); border: 1.5px solid rgba(0,0,0,0.25); }
+    .btn-outline:hover { border-color: var(--gold-dk); color: var(--gold-dk); }
+    .btn-red { background: var(--red); color: var(--white); }
+    .btn-red:hover { background: #a80d25; }
+
+    /* ── PRIMARY NAV ── */
+    nav.primary {
+      background: var(--charcoal);
+      border-bottom: 1px solid rgba(245,184,0,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav.primary ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    nav.primary ul li a {
+      display: block;
+      padding: 0.85rem 1.1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: #ccc;
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav.primary ul li a:hover,
+    nav.primary ul li a.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+    nav.primary ul li.spacer { flex: 1; }
+    .nav-search { background: none; border: 1px solid rgba(255,255,255,0.2); color: var(--white); padding: 0.4rem 0.85rem; font-family: 'Inter', sans-serif; font-size: 0.78rem; border-radius: 2px; outline: none; width: 180px; }
+    .nav-search::placeholder { color: rgba(255,255,255,0.35); }
+    .nav-search:focus { border-color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      background: #f8f5ef;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      min-height: 560px;
+    }
+    .hero-main {
+      padding: 3.5rem 3rem 3.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid rgba(245,184,0,0.2);
+    }
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-eyebrow::before { content: ''; width: 32px; height: 2px; background: var(--gold); }
+    .hero-tag {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+      max-width: 640px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-dk); }
+    .hero-excerpt {
+      font-size: 1.05rem;
+      color: #555;
+      max-width: 560px;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .hero-meta {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      color: #999;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.8rem;
+    }
+    .hero-meta span { color: #666; }
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .hero-sidebar {
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .sidebar-heading {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(245,184,0,0.3);
+      margin-bottom: 1.2rem;
+    }
+    .sidebar-article {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .sidebar-article:hover .sa-title { color: var(--gold); }
+    .sa-cat {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.3rem;
+    }
+    .sa-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 1rem;
+      color: var(--black);
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+    .sa-author {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ── HERO CAROUSEL ── */
+    .carousel-wrapper { position: relative; width: 100%; height: 100%; }
+    .carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s ease; pointer-events: none; display: flex; flex-direction: column; justify-content: center; padding: 3.5rem 3rem 3.5rem 4rem; }
+    .carousel-slide.active { opacity: 1; pointer-events: auto; position: relative; }
+    .carousel-dots { display: flex; gap: .45rem; margin-top: 1.8rem; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
+    .carousel-dot.active { background: var(--gold); }
+
+    /* ── GOLD STRIPE ── */
+    .gold-stripe {
+      background: var(--gold);
+      padding: 0.9rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .gold-stripe p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--black);
+      letter-spacing: 0.04em;
+    }
+    .gold-stripe .btn-black { background: var(--black); color: var(--gold); padding: 0.4rem 1.1rem; font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.2s; }
+    .gold-stripe .btn-black:hover { background: var(--charcoal); }
+
+    /* ── SECTION WRAPPER ── */
+    .section { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--gold);
+    }
+    .section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+    .section-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--red);
+      text-decoration: none;
+    }
+    .section-link:hover { text-decoration: underline; }
+
+    /* ── ARTICLE GRID ── */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+    .article-card {
+      border-top: 3px solid var(--border);
+      padding-top: 1.4rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .article-card:hover { border-top-color: var(--gold); }
+    .article-card:hover .ac-title { color: var(--red); }
+    .ac-category {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+      margin-bottom: 0.5rem;
+    }
+    .ac-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--black);
+      margin-bottom: 0.6rem;
+      transition: color 0.2s;
+    }
+    .ac-excerpt {
+      font-size: 0.93rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 0.9rem;
+    }
+    .ac-meta {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      color: #999;
+    }
+    .ac-meta strong { color: var(--black); font-weight: 600; }
+
+    /* ── FEATURED ARTICLE (wide) ── */
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+    .featured-visual {
+      background: #f8f5ef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(245,184,0,0.04) 0px,
+        rgba(245,184,0,0.04) 1px,
+        transparent 1px,
+        transparent 20px
+      );
+    }
+    .featured-visual-inner {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .featured-vol {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .featured-seal {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      margin: 0 auto 1.2rem;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+    .featured-issue-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      font-weight: 900;
+      color: rgba(245,184,0,0.15);
+      line-height: 1;
+      position: absolute;
+      bottom: 1.5rem;
+      right: 2rem;
+    }
+    .featured-body {
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .featured-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.8rem;
+    }
+    .featured-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      color: var(--black);
+    }
+    .featured-excerpt {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .featured-meta {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      color: #999;
+      margin-bottom: 1.5rem;
+    }
+    .featured-meta strong { color: var(--black); }
+
+    /* ── ABOUT BAND ── */
+    .about-band {
+      background: var(--off-white);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4.5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-text h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .about-text h2 em { font-style: italic; color: var(--red); }
+    .about-text .vol-line {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #444;
+      margin-bottom: 1rem;
+    }
+    .about-text .actions { margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn-black-solid { background: var(--black); color: var(--white); }
+    .btn-black-solid:hover { background: var(--charcoal); }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      padding: 1.5rem;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--black);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-num sup { font-size: 1.1rem; vertical-align: super; }
+    .stat-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    /* ── VOLUME ISSUES ── */
+    .issues-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .issue-card {
+      background: var(--black);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .issue-card:hover { transform: translateY(-4px); }
+    .issue-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--gold); }
+    .issue-vol {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .issue-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      opacity: 0.9;
+      margin-bottom: 0.4rem;
+    }
+    .issue-season {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.06em;
+    }
+    .issue-count {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      color: rgba(245,184,0,0.7);
+      margin-top: 0.8rem;
+    }
+
+    /* ── EDITORIAL BOARD ── */
+    .board-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .board-card {
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+    }
+    .bc-role {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+      margin-bottom: 0.4rem;
+    }
+    .bc-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.2rem;
+    }
+    .bc-info {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ── SUBMISSION CTA ── */
+    .cta-band {
+      background: #f8f5ef;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .cta-band .eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dk);
+      margin-bottom: 1rem;
+    }
+    .cta-band h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-band h2 em { font-style: italic; color: var(--gold-dk); }
+    .cta-band p {
+      font-size: 1.05rem;
+      color: #666;
+      max-width: 560px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .guidelines-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 3rem auto 0;
+    }
+    .guide-item {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: left;
+    }
+    .guide-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold-dk);
+      opacity: 0.6;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .guide-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 0.4rem;
+    }
+    .guide-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal);
+      border-top: 3px solid var(--gold);
+    }
+    .footer-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+    .footer-brand .masthead-logo { width: 60px; height: 60px; margin-bottom: 1rem; }
+    .footer-brand h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .footer-brand h3 em { font-style: italic; color: var(--gold); }
+    .footer-brand p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.6;
+      margin-top: 0.75rem;
+      max-width: 260px;
+    }
+    .footer-col h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(245,184,0,0.25);
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.2rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+    /* ── DIVIDER ── */
+    .rule { border: none; border-top: 1px solid var(--border); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-sidebar { display: none; }
+      .hero-main { padding: 3rem 1.5rem; }
+      .hero-title { font-size: 2.2rem; }
+      .article-grid { grid-template-columns: 1fr 1fr; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .featured-visual { display: none; }
+      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .issues-grid { grid-template-columns: 1fr 1fr; }
+      .board-grid { grid-template-columns: 1fr 1fr; }
+      .footer-main { grid-template-columns: 1fr 1fr; }
+      .guidelines-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .masthead { flex-direction: column; gap: 1rem; align-items: flex-start; }
+      .masthead-actions { display: none; }
+      .article-grid { grid-template-columns: 1fr; }
+      .issues-grid { grid-template-columns: 1fr 1fr; }
+      .board-grid { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: 1fr; }
+      .gold-stripe { flex-direction: column; gap: 0.75rem; text-align: center; padding: 1rem; }
+      .utility-bar .right { display: none; }
+      .cta-band h2 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- UTILITY BAR -->
+<div class="utility-bar">
+  <div class="left">
+    Volume I &nbsp;<span class="sep">|</span>&nbsp; 2024–2025
+    &nbsp;<span class="sep">|</span>&nbsp; University of Maryland, Baltimore County
+  </div>
+  <div class="right">
+    <a href="submissions.html">Submit a Manuscript</a>
+    <span class="sep">|</span>
+    <a href="about.html#board">Editorial Board</a>
+    <span class="sep">|</span>
+    <a href="contact.html">Contact</a>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <a href="index.html" class="masthead-brand">
+    <img src="brand_assets/logo.png" alt="UMBC Pre-Law Review Seal" class="masthead-logo" />
+    <div class="masthead-text">
+      <div class="pre">University of Maryland, Baltimore County</div>
+      <h1>Pre-Law <em>Review</em></h1>
+    </div>
+  </a>
+  <div class="masthead-actions">
+    <a href="#submit" class="btn btn-gold">Submit</a>
+    <a href="#about" class="btn btn-outline">About</a>
+  </div>
+</header>
+
+<!-- PRIMARY NAV -->
+<nav class="primary" aria-label="Main navigation">
+  <ul>
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="scholarship.html">Scholarship</a></li>
+    <li><a href="issues.html">Issues</a></li>
+    <li><a href="submissions.html">Submissions</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li class="spacer"></li>
+    <li><input type="search" class="nav-search" id="navSearch" placeholder="Search articles…" /></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-main" id="heroMain"></div>
+  <aside class="hero-sidebar" id="heroSidebar"></aside>
+</section>
+
+<!-- GOLD ANNOUNCEMENT STRIPE -->
+<div class="gold-stripe">
+  <p>Now accepting submissions for Volume I, Issue 2 — Deadline: June 30, 2025</p>
+  <a href="submissions.html" class="btn-black">Submit Your Manuscript</a>
+</div>
+
+<!-- RECENT SCHOLARSHIP -->
+<div id="articles">
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">Recent Scholarship</h2>
+      <a href="scholarship.html" class="section-link">View All Articles →</a>
+    </div>
+    <div class="article-grid" id="recentGrid"></div>
+  </div>
+</div>
+
+<!-- FEATURED ARTICLE SPOTLIGHT -->
+<div id="spotlightSection" style="background:var(--off-white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">Editor's Spotlight</h2>
+      <a href="scholarship.html" class="section-link">All Articles →</a>
+    </div>
+    <div class="featured-grid">
+      <div class="featured-visual">
+        <div class="featured-visual-inner">
+          <div class="featured-vol">UMBC Pre-Law Review</div>
+          <img src="brand_assets/logo.png" alt="Seal" class="featured-seal" />
+          <div class="featured-issue-num" id="spotlightIssueNum">I</div>
+        </div>
+      </div>
+      <div class="featured-body" id="spotlightBody"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="about-band">
+  <div class="about-inner">
+    <div class="about-text">
+      <div class="vol-line">Est. 2025 · Volume I</div>
+      <h2>About the <em>Pre-Law Review</em></h2>
+      <p>
+        The UMBC Pre-Law Review is a student-run academic journal dedicated to publishing rigorous, original legal scholarship by undergraduate students across all fields of law. We are committed to cultivating the next generation of legal thinkers at the University of Maryland, Baltimore County.
+      </p>
+      <p>
+        Our journal provides a platform for substantive legal analysis, policy commentary, and doctrinal critique. We welcome submissions engaging with constitutional, statutory, and regulatory questions of contemporary significance.
+      </p>
+      <div class="actions">
+        <a href="submissions.html" class="btn btn-gold">Submit Manuscript</a>
+        <a href="about.html#board" class="btn btn-black-solid btn">Meet the Board</a>
+      </div>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num"><span class="counter" data-target="47" data-suffix="+">0</span></div>
+        <div class="stat-label">Articles Published</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span class="counter" data-target="4" data-suffix="">0</span></div>
+        <div class="stat-label">Issues Per Year</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span class="counter" data-target="5" data-suffix="">0</span></div>
+        <div class="stat-label">Editorial Board Members</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span class="counter" data-target="93" data-suffix="%">0</span></div>
+        <div class="stat-label">Members Admitted to Law School</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VOLUMES & ISSUES -->
+<div id="volumes">
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">Volumes &amp; Issues</h2>
+      <a href="issues.html" class="section-link">Full Archive →</a>
+    </div>
+    <div class="issues-grid">
+      <a href="issues.html" class="issue-card" style="text-decoration:none;display:block;">
+        <div class="issue-vol">Vol. I</div>
+        <div class="issue-num">1</div>
+        <div class="issue-season">Spring 2025</div>
+        <div class="issue-count">8 Articles</div>
+      </a>
+      <a href="issues.html" class="issue-card" style="opacity:0.6;text-decoration:none;display:block;">
+        <div class="issue-vol">Vol. I</div>
+        <div class="issue-num">2</div>
+        <div class="issue-season">Spring 2026</div>
+        <div class="issue-count" style="color:var(--red);">Forthcoming</div>
+      </a>
+      <a href="issues.html" class="issue-card" style="opacity:0.4;text-decoration:none;display:block;">
+        <div class="issue-vol">Vol. I</div>
+        <div class="issue-num">3</div>
+        <div class="issue-season">Winter 2026</div>
+        <div class="issue-count" style="color:rgba(255,255,255,0.3);">Accepting Submissions</div>
+      </a>
+      <a href="issues.html" class="issue-card" style="opacity:0.3;text-decoration:none;display:block;">
+        <div class="issue-vol">Vol. I</div>
+        <div class="issue-num">4</div>
+        <div class="issue-season">Spring 2026</div>
+        <div class="issue-count" style="color:rgba(255,255,255,0.3);">Open Call</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- EDITORIAL BOARD -->
+<div id="board" style="background:var(--off-white);border-top:1px solid var(--border);">
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">Editorial Board</h2>
+      <a href="about.html#board" class="section-link">Full Board →</a>
+    </div>
+    <div class="board-grid">
+      <div class="board-card">
+        <div class="bc-role">Editor-in-Chief</div>
+        <div class="bc-name">Duriya Khan</div>
+        <div class="bc-info">Political Science · Minor: Law &amp; Justice, Social Welfare</div>
+      </div>
+      <div class="board-card">
+        <div class="bc-role">Managing Editor</div>
+        <div class="bc-name">Mehak Rizvi</div>
+        <div class="bc-info">mrizvi2@umbc.edu</div>
+      </div>
+      <div class="board-card">
+        <div class="bc-role">Senior Editor</div>
+        <div class="bc-name">Qamryn Askew</div>
+        <div class="bc-info">Political Science · Freshman</div>
+      </div>
+      <div class="board-card">
+        <div class="bc-role">Senior Editor</div>
+        <div class="bc-name">Sedat Sefik</div>
+        <div class="bc-info">International &amp; Public Policy Studies</div>
+      </div>
+      <div class="board-card">
+        <div class="bc-role">Associate Editor</div>
+        <div class="bc-name">Evelyn Pearce</div>
+        <div class="bc-info">History · Minor: German, Law &amp; Justice</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUBMISSION CTA -->
+<div id="submit" class="cta-band">
+  <div class="eyebrow">Call for Submissions</div>
+  <h2>Share Your <em>Legal Scholarship</em> with the UMBC Community</h2>
+  <p>
+    We welcome articles, essays, notes, and comments from undergraduate students on any area of law. Strong submissions demonstrate doctrinal fluency, original analysis, and careful citation.
+  </p>
+  <div class="cta-actions">
+    <a href="submissions.html" class="btn btn-gold">Submit a Manuscript</a>
+    <a href="submissions.html#guidelines" class="btn btn-outline">Submission Guidelines</a>
+  </div>
+  <div class="guidelines-grid">
+    <div class="guide-item">
+      <div class="guide-num">01</div>
+      <div class="guide-title">Eligibility</div>
+      <div class="guide-desc">Open to all UMBC undergraduates in any major. Co-authored submissions welcome.</div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-num">02</div>
+      <div class="guide-title">Format</div>
+      <div class="guide-desc">5,000–20,000 words. Bluebook citation required. Double-spaced, Times New Roman 12pt.</div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-num">03</div>
+      <div class="guide-title">Review Process</div>
+      <div class="guide-desc">Double-blind peer review. Decisions typically within 6–8 weeks of submission.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img src="brand_assets/logo.png" alt="UMBC Pre-Law Review" class="masthead-logo" />
+      <h3>UMBC Pre-Law <em>Review</em></h3>
+      <p>A student-run journal of legal scholarship at the University of Maryland, Baltimore County. Published four times per year.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Journal</h4>
+      <ul>
+        <li><a href="issues.html">Current Issue</a></li>
+        <li><a href="issues.html">Archive</a></li>
+        <li><a href="scholarship.html">All Articles</a></li>
+        <li><a href="scholarship.html">Browse by Topic</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Organization</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="about.html#board">Editorial Board</a></li>
+        <li><a href="submissions.html">Join Our Team</a></li>
+        <li><a href="about.html">Faculty Advisors</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Authors</h4>
+      <ul>
+        <li><a href="submissions.html">Submit</a></li>
+        <li><a href="submissions.html#guidelines">Guidelines</a></li>
+        <li><a href="submissions.html#guidelines">Bluebook Guide</a></li>
+        <li><a href="contact.html">Contact Editors</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 UMBC Pre-Law Review. All rights reserved. &nbsp;·&nbsp; <a href="#">Privacy Policy</a></p>
+    <p>University of Maryland, Baltimore County · Baltimore, MD 21250</p>
+  </div>
+</footer>
+
+<script src="data/articles.js"></script>
+<script>
+(function () {
+  const arts = (typeof ARTICLES !== 'undefined' ? ARTICLES : []);
+
+  /* ── helpers ── */
+  const CAT_COLORS = {
+    'Constitutional Law':'#1a3a5c','Criminal Law':'#5c1a1a',
+    'Administrative Law':'#1a5c2e','Civil Rights':'#C8102E',
+    'Intellectual Property':'#4a1a5c','International Law':'#1a4a5c',
+    'Corporate Law':'#3a3a1a',
+  };
+
+  function pdfBtns(a, darkBg) {
+    const has = a.pdfPath && a.pdfPath.trim();
+    const readCls  = darkBg ? 'btn btn-gold'    : 'btn btn-black-solid btn';
+    const dlCls    = darkBg ? 'btn btn-outline'  : 'btn btn-outline btn';
+    const dlStyle  = darkBg ? '' : 'style="color:var(--black);border-color:var(--border);"';
+    const disStyle = 'style="opacity:.45;cursor:not-allowed;"';
+    const read = has
+      ? `<a href="${a.pdfPath}" target="_blank" class="${readCls}">Read Article</a>`
+      : `<button disabled class="${readCls}" ${disStyle}>Read Article</button>`;
+    const dl = has
+      ? `<a href="${a.pdfPath}" download class="${dlCls}" ${dlStyle}>Download PDF</a>`
+      : `<button disabled class="${dlCls}" ${dlStyle} ${disStyle}>Download PDF</button>`;
+    return read + dl;
+  }
+
+  /* ── HERO CAROUSEL ── */
+  const heroMain = document.getElementById('heroMain');
+  const sidebar = document.getElementById('heroSidebar');
+  const carouselArts = arts.slice().reverse().slice(0, 3);
+
+  if (carouselArts.length === 0) {
+    heroMain.innerHTML = `
+      <div class="hero-eyebrow">Volume I &nbsp; Launching Spring 2026</div>
+      <div class="hero-tag" style="background:var(--gold);color:var(--black);">Coming Soon</div>
+      <h2 class="hero-title">First Issue Launching <em>Spring 2026</em></h2>
+      <p class="hero-excerpt">The UMBC Pre-Law Review is currently accepting submissions for its inaugural issue. Original legal scholarship on any area of law is welcome.</p>
+      <div class="hero-meta">Submissions open &nbsp;·&nbsp; <span>Volume I, Issue 1 — Spring 2026</span></div>
+      <div class="hero-actions">
+        <a href="submissions.html" class="btn btn-gold">Submit Your Work</a>
+        <a href="about.html" class="btn btn-outline">Learn More</a>
+      </div>`;
+  } else {
+    const slides = carouselArts.map((a, i) => `
+      <div class="carousel-slide${i === 0 ? ' active' : ''}" data-idx="${i}">
+        <div class="hero-eyebrow">Featured Article &nbsp; Vol. ${a.volume}, No. ${a.issue} — ${a.year}</div>
+        <div class="hero-tag">Lead Article</div>
+        <h2 class="hero-title">${a.title}</h2>
+        <p class="hero-excerpt">${a.abstract.length > 220 ? a.abstract.slice(0, 220) + '…' : a.abstract}</p>
+        <div class="hero-meta">By <span>${a.author}</span> &nbsp;·&nbsp; <span>${a.volume} UMBC Pre-L. Rev. ${a.pages} (${a.year})</span></div>
+        <div class="hero-actions">${pdfBtns(a, true)}</div>
+      </div>`).join('');
+    const dots = carouselArts.map((_, i) => `<button class="carousel-dot${i === 0 ? ' active' : ''}" data-dot="${i}" aria-label="Slide ${i + 1}"></button>`).join('');
+    heroMain.innerHTML = `<div class="carousel-wrapper">${slides}</div><div class="carousel-dots">${dots}</div>`;
+
+    let current = 0;
+    const allSlides = heroMain.querySelectorAll('.carousel-slide');
+    const allDots = heroMain.querySelectorAll('.carousel-dot');
+
+    function goTo(idx) {
+      allSlides[current].classList.remove('active');
+      allDots[current].classList.remove('active');
+      current = (idx + carouselArts.length) % carouselArts.length;
+      allSlides[current].classList.add('active');
+      allDots[current].classList.add('active');
+    }
+
+    allDots.forEach(d => d.addEventListener('click', () => { goTo(parseInt(d.dataset.dot)); clearInterval(timer); timer = setInterval(() => goTo(current + 1), 5000); }));
+    let timer = setInterval(() => goTo(current + 1), 5000);
+  }
+
+  /* ── SIDEBAR ── */
+  const featured = arts.find(a => a.featured) || arts[0];
+  if (featured) {
+    const sameIssue = arts.filter(a => a !== featured && a.volume === featured.volume && a.issue === featured.issue).slice(0, 4);
+    const items = sameIssue.length
+      ? sameIssue.map(a => {
+          const dest = a.pdfPath ? a.pdfPath : 'scholarship.html';
+          const target = a.pdfPath ? ' target="_blank"' : '';
+          return `
+          <a href="${dest}"${target} class="sidebar-article" style="text-decoration:none;display:block;">
+            <div class="sa-cat">${a.category}</div>
+            <div class="sa-title">${a.title}</div>
+            <div class="sa-author">${a.author}</div>
+          </a>`;
+        }).join('')
+      : `<div style="padding:1.2rem 0;font-family:'Inter',sans-serif;font-size:.78rem;color:var(--muted);line-height:1.6;">No other articles in this issue yet.</div>`;
+    sidebar.innerHTML = `
+      <div class="sidebar-heading">Also in This Issue</div>
+      ${items}
+      <div style="margin-top:1.4rem;">
+        <a href="scholarship.html" class="btn btn-gold" style="width:100%;text-align:center;display:block;">View All Articles →</a>
+      </div>`;
+  } else {
+    sidebar.innerHTML = `
+      <div class="sidebar-heading">Also in This Issue</div>
+      <div style="padding:1.8rem 0;text-align:center;">
+        <div style="font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:rgba(253,181,21,0.15);line-height:1;margin-bottom:.9rem;">I</div>
+        <div style="font-family:'Inter',sans-serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.25);margin-bottom:.4rem;">First Issue</div>
+        <div style="font-family:'Inter',sans-serif;font-size:.78rem;color:rgba(0,0,0,.3);line-height:1.6;">Articles will appear here<br>when the first issue launches.</div>
+      </div>
+      <div style="margin-top:1.4rem;">
+        <a href="submissions.html" class="btn btn-gold" style="width:100%;text-align:center;display:block;">Submit Your Work →</a>
+      </div>`;
+  }
+
+  /* ── RECENT SCHOLARSHIP ── */
+  const grid = document.getElementById('recentGrid');
+  if (arts.length) {
+    const recent = arts.slice().reverse().slice(0, 6);
+    grid.innerHTML = recent.map(a => {
+      const bg = CAT_COLORS[a.category] || '#1a1a1a';
+      const dest = a.pdfPath ? a.pdfPath : 'scholarship.html';
+      const target = a.pdfPath ? ' target="_blank"' : '';
+      return `
+        <article class="article-card" onclick="location.href='${dest}'" style="cursor:pointer;">
+          <div class="ac-category" style="background:${bg};color:#fff;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .55rem;border-radius:2px;display:inline-block;width:fit-content;">${a.category}</div>
+          <h3 class="ac-title">${a.title}</h3>
+          <p class="ac-excerpt">${a.abstract}</p>
+          <div class="ac-meta"><strong>${a.author}</strong> · ${a.volume} UMBC Pre-L. Rev. ${a.pages} (${a.year})</div>
+          <div style="margin-top:.8rem;">${pdfBtns(a, false)}</div>
+        </article>`;
+    }).join('');
+  } else {
+    grid.style.display = 'block';
+    grid.innerHTML = `
+      <div style="border:1px solid var(--border);border-top:3px solid var(--gold);padding:4rem 2rem;text-align:center;background:var(--off-white);">
+        <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--ink);margin-bottom:.6rem;">First Issue Launching Spring 2026</div>
+        <p style="font-family:'Inter',sans-serif;font-size:.88rem;color:var(--muted);max-width:440px;margin:0 auto 1.5rem;line-height:1.7;">Published scholarship will appear here once our inaugural issue is released.</p>
+        <a href="submissions.html" class="btn btn-gold">Submit a Manuscript</a>
+      </div>`;
+  }
+
+  /* ── EDITOR'S SPOTLIGHT ── */
+  const spotlightBody = document.getElementById('spotlightBody');
+  const spotlightIssueNum = document.getElementById('spotlightIssueNum');
+  if (featured) {
+    if (spotlightIssueNum) spotlightIssueNum.textContent = featured.issue;
+    spotlightBody.innerHTML = `
+      <div class="featured-label">Featured Scholarship</div>
+      <h3 class="featured-title">${featured.title}</h3>
+      <p class="featured-excerpt">${featured.abstract}</p>
+      <div class="featured-meta">By <strong>${featured.author}</strong> &nbsp;·&nbsp; ${featured.volume} UMBC Pre-L. Rev. ${featured.pages} (${featured.year})</div>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;">${pdfBtns(featured, false)}</div>`;
+  } else {
+    spotlightBody.style.cssText = 'display:flex;align-items:center;justify-content:center;text-align:center;padding:3.5rem;';
+    spotlightBody.innerHTML = `
+      <div>
+        <div style="font-family:'Inter',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dk);margin-bottom:.8rem;">Editor's Spotlight</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;line-height:1.25;margin-bottom:.8rem;color:var(--ink);">First Issue Launching<br><em style="color:var(--red);">Spring 2026</em></h3>
+        <p style="font-family:'Inter',sans-serif;font-size:.82rem;color:var(--muted);max-width:360px;margin:0 auto 1.5rem;line-height:1.7;">The Editor's Spotlight will feature a selected article from each issue.</p>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;">
+          <a href="submissions.html" class="btn btn-black-solid btn">Submit Your Work</a>
+          <button disabled class="btn" style="background:var(--fog);color:var(--muted);cursor:not-allowed;border:1px solid var(--border);">Read Article — Coming Soon</button>
+        </div>
+      </div>`;
+  }
+  /* ── COUNTER ANIMATION ── */
+  (function () {
+    const counters = document.querySelectorAll('.counter');
+    if (!counters.length) return;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        const el = entry.target;
+        const target = parseInt(el.dataset.target, 10);
+        const suffix = el.dataset.suffix || '';
+        const duration = 900;
+        const steps = 40;
+        const stepTime = duration / steps;
+        let current = 0;
+        const increment = target / steps;
+        const timer = setInterval(() => {
+          current = Math.min(current + increment, target);
+          el.textContent = Math.floor(current) + suffix;
+          if (current >= target) {
+            el.textContent = target + suffix;
+            clearInterval(timer);
+          }
+        }, stepTime);
+      });
+    }, { threshold: 0.3 });
+    counters.forEach(c => observer.observe(c));
+  })();
+
+  /* ── NAV SEARCH ── */
+  const navSearch = document.getElementById('navSearch');
+  if (navSearch) {
+    navSearch.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && navSearch.value.trim()) {
+        location.href = 'scholarship.html?q=' + encodeURIComponent(navSearch.value.trim());
+      }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

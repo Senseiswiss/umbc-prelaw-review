@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — UMBC Pre-Law Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #fdb515; --gold-dk: #d99a00; --black: #111111; --charcoal: #1c1c1c;
+      --ink: #1a1a1a; --red: #C8102E; --white: #ffffff; --off-white: #f8f5ef;
+      --fog: #f2efe8; --muted: #666666; --border: #e0d9ce;
+      --green: #1a6b3a; --green-lt: #f0faf5; --green-bd: #b6e6c9;
+      --red-lt: #fff5f5; --red-bd: #ffd0d0;
+      --yellow-lt: #fffbf0; --yellow-bd: #ffe5a0;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--off-white); color: var(--ink); line-height: 1.5; min-height: 100vh; }
+
+    /* ── LOGIN SCREEN ────────────────────────────────────────────────── */
+    #loginScreen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: var(--black);
+    }
+    .login-box {
+      background: var(--charcoal); border: 1px solid rgba(253,181,21,.2);
+      border-top: 3px solid var(--gold); padding: 3rem 2.5rem; width: 380px; max-width: 95vw;
+    }
+    .login-logo { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+    .login-logo img { width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+    .login-logo-text .journal { font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); }
+    .login-logo-text .title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; color: var(--white); }
+    .login-logo-text .title em { font-style: italic; color: var(--gold); }
+    .login-box h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: .3rem; }
+    .login-box p { font-size: .8rem; color: rgba(255,255,255,.45); margin-bottom: 1.8rem; }
+    .login-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.6); display: block; margin-bottom: .4rem; }
+    .login-input { width: 100%; padding: .7rem .9rem; background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.15); border-radius: 2px; color: var(--white); font-family: 'Inter', sans-serif; font-size: .95rem; outline: none; transition: border-color .2s; }
+    .login-input:focus { border-color: var(--gold); }
+    .login-input.error { border-color: var(--red); }
+    .login-error { font-size: .74rem; color: #ff8080; margin-top: .4rem; display: none; }
+    .login-error.visible { display: block; }
+    .login-btn { width: 100%; margin-top: 1.4rem; padding: .75rem; background: var(--gold); color: var(--black); font-family: 'Inter', sans-serif; font-size: .82rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border: none; border-radius: 2px; cursor: pointer; transition: background .2s; }
+    .login-btn:hover { background: var(--gold-dk); }
+    .login-footer { font-size: .7rem; color: rgba(255,255,255,.25); text-align: center; margin-top: 1.5rem; }
+
+    /* ── DASHBOARD ───────────────────────────────────────────────────── */
+    #dashboard { display: none; }
+
+    /* ── DASHBOARD HEADER ── */
+    .dash-header { background: var(--black); border-bottom: 3px solid var(--gold); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .dash-brand { display: flex; align-items: center; gap: .9rem; text-decoration: none; }
+    .dash-brand img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+    .dash-brand-text .sup { font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+    .dash-brand-text .name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; color: var(--white); line-height: 1.1; }
+    .dash-brand-text .name em { font-style: italic; color: var(--gold); }
+    .dash-header-right { display: flex; align-items: center; gap: 1rem; }
+    .dash-badge { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .28rem .8rem; border-radius: 2px; background: rgba(253,181,21,.15); color: var(--gold); border: 1px solid rgba(253,181,21,.3); }
+    .dash-logout { font-size: .74rem; font-weight: 600; color: rgba(255,255,255,.5); background: none; border: 1px solid rgba(255,255,255,.2); padding: .3rem .8rem; border-radius: 2px; cursor: pointer; transition: all .2s; }
+    .dash-logout:hover { color: var(--white); border-color: rgba(255,255,255,.5); }
+
+    /* ── STATS ROW ── */
+    .stats-row { background: var(--charcoal); border-bottom: 1px solid rgba(253,181,21,.15); padding: 1rem 2rem; display: flex; gap: 2rem; flex-wrap: wrap; }
+    .stat-pill { display: flex; align-items: center; gap: .5rem; }
+    .stat-pill .num { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; line-height: 1; }
+    .stat-pill .lbl { font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.4); line-height: 1.3; }
+    .stat-pill.total .num { color: var(--white); }
+    .stat-pill.pending .num { color: var(--gold); }
+    .stat-pill.published .num { color: #5de891; }
+    .stat-pill.rejected .num { color: #ff7070; }
+    .stat-divider { width: 1px; background: rgba(255,255,255,.1); align-self: stretch; }
+
+    /* ── MAIN AREA ── */
+    .dash-main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+    /* ── TOOLBAR ── */
+    .toolbar { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .toolbar-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; flex: 1; min-width: 140px; }
+    .tab-btn { font-size: .72rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; padding: .38rem .95rem; border: 1.5px solid var(--border); background: var(--white); color: var(--muted); border-radius: 2px; cursor: pointer; transition: all .2s; }
+    .tab-btn:hover { border-color: var(--ink); color: var(--ink); }
+    .tab-btn.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .tab-btn.t-pending.active { background: #7a5d00; border-color: #7a5d00; }
+    .tab-btn.t-published.active { background: var(--green); border-color: var(--green); }
+    .tab-btn.t-rejected.active { background: #8b1a1a; border-color: #8b1a1a; }
+
+    /* ── SUBMISSION CARDS ── */
+    .submissions-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .sub-card { background: var(--white); padding: 1.4rem 1.6rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; }
+    .sub-card:hover { background: var(--fog); }
+    .sub-top { display: flex; align-items: center; gap: .6rem; margin-bottom: .4rem; flex-wrap: wrap; }
+    .sub-status { font-size: .63rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .18rem .6rem; border-radius: 2px; }
+    .sub-status.pending { background: var(--yellow-lt); color: #7a5d00; border: 1px solid var(--yellow-bd); }
+    .sub-status.published { background: var(--green-lt); color: var(--green); border: 1px solid var(--green-bd); }
+    .sub-status.rejected { background: var(--red-lt); color: var(--red); border: 1px solid var(--red-bd); }
+    .sub-cat { font-size: .63rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .sub-date { font-size: .68rem; color: #aaa; margin-left: auto; }
+    .sub-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; line-height: 1.35; margin-bottom: .3rem; color: var(--ink); }
+    .sub-author { font-size: .8rem; color: var(--ink); font-weight: 600; }
+    .sub-email { font-size: .75rem; color: var(--muted); }
+    .sub-abstract { font-size: .88rem; color: #555; line-height: 1.6; margin-top: .5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .sub-actions { display: flex; flex-direction: column; gap: .4rem; align-items: flex-end; min-width: 120px; }
+    .action-btn { font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .9rem; border-radius: 2px; border: none; cursor: pointer; transition: all .2s; width: 120px; text-align: center; }
+    .action-btn.publish { background: var(--green); color: var(--white); }
+    .action-btn.publish:hover { background: #155c30; }
+    .action-btn.reject { background: var(--red-lt); color: var(--red); border: 1px solid var(--red-bd); }
+    .action-btn.reject:hover { background: var(--red); color: var(--white); }
+    .action-btn.unpublish { background: var(--yellow-lt); color: #7a5d00; border: 1px solid var(--yellow-bd); }
+    .action-btn.unpublish:hover { background: #7a5d00; color: var(--white); }
+    .action-btn.download { background: var(--off-white); color: var(--ink); border: 1px solid var(--border); }
+    .action-btn.download:hover { background: var(--fog); }
+    .action-btn.delete { background: transparent; color: #aaa; border: 1px solid var(--border); }
+    .action-btn.delete:hover { background: var(--red-lt); color: var(--red); border-color: var(--red-bd); }
+
+    /* ── EMPTY STATE ── */
+    .empty-dash { text-align: center; padding: 5rem 2rem; background: var(--white); border: 1px solid var(--border); color: var(--muted); }
+    .empty-dash h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--ink); margin-bottom: .5rem; }
+    .empty-dash p { font-size: .88rem; }
+
+    /* ── TOAST ── */
+    .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--ink); color: var(--white); font-size: .82rem; padding: .7rem 1.5rem; border-radius: 2px; border-left: 3px solid var(--gold); opacity: 0; transition: transform .3s, opacity .3s; z-index: 999; white-space: nowrap; }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    @media (max-width: 700px) {
+      .sub-card { grid-template-columns: 1fr; }
+      .sub-actions { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+      .action-btn { width: auto; }
+      .stats-row { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN SCREEN ──────────────────────────────────────────────────────── -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">
+      <img src="brand_assets/logo.png" alt="Seal" />
+      <div class="login-logo-text">
+        <div class="journal">UMBC Pre-Law Review</div>
+        <div class="title">Editor <em>Portal</em></div>
+      </div>
+    </div>
+    <h2>Sign In</h2>
+    <p>Restricted to editorial board members only.</p>
+    <label class="login-label" for="passwordInput">Password</label>
+    <input type="password" id="passwordInput" class="login-input" placeholder="Enter editorial password" />
+    <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
+    <button class="login-btn" onclick="attemptLogin()">Access Dashboard</button>
+    <div class="login-footer">Having trouble? Contact <a href="mailto:umbcprelawreview@umbc.edu" style="color:rgba(253,181,21,.6);text-decoration:none;">umbcprelawreview@umbc.edu</a></div>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ─────────────────────────────────────────────────────────── -->
+<div id="dashboard">
+
+  <div class="dash-header">
+    <a href="index.html" class="dash-brand">
+      <img src="brand_assets/logo.png" alt="Seal" />
+      <div class="dash-brand-text">
+        <div class="sup">UMBC Pre-Law Review</div>
+        <div class="name">Editor <em>Dashboard</em></div>
+      </div>
+    </a>
+    <div class="dash-header-right">
+      <span class="dash-badge">Admin</span>
+      <button class="dash-logout" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+
+  <div class="stats-row" id="statsRow">
+    <!-- populated by JS -->
+  </div>
+
+  <div class="dash-main">
+    <div class="toolbar">
+      <div class="toolbar-title">Submissions</div>
+      <button class="tab-btn active" data-filter="all" onclick="setFilter('all', this)">All</button>
+      <button class="tab-btn t-pending" data-filter="pending" onclick="setFilter('pending', this)">Pending</button>
+      <button class="tab-btn t-published" data-filter="published" onclick="setFilter('published', this)">Published</button>
+      <button class="tab-btn t-rejected" data-filter="rejected" onclick="setFilter('rejected', this)">Rejected</button>
+    </div>
+
+    <div id="submissionsList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── CHANGE THIS PASSWORD BEFORE GOING LIVE ────────────────────────────────
+  const ADMIN_PASSWORD = 'PLReview2025';
+
+  // ── LOGIN ─────────────────────────────────────────────────────────────────
+  function attemptLogin() {
+    const val = document.getElementById('passwordInput').value;
+    const err = document.getElementById('loginError');
+    const inp = document.getElementById('passwordInput');
+    if (val === ADMIN_PASSWORD) {
+      sessionStorage.setItem('plr_admin', '1');
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      renderDashboard();
+    } else {
+      inp.classList.add('error');
+      err.classList.add('visible');
+      setTimeout(() => inp.classList.remove('error'), 800);
+    }
+  }
+
+  document.getElementById('passwordInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') attemptLogin();
+  });
+
+  function logout() {
+    sessionStorage.removeItem('plr_admin');
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('passwordInput').value = '';
+  }
+
+  // Auto-login if session active
+  if (sessionStorage.getItem('plr_admin') === '1') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+  }
+
+  // ── DATA ──────────────────────────────────────────────────────────────────
+  function getSubmissions() {
+    try { return JSON.parse(localStorage.getItem('plr_submissions') || '[]'); }
+    catch { return []; }
+  }
+
+  function saveSubmissions(subs) {
+    localStorage.setItem('plr_submissions', JSON.stringify(subs));
+  }
+
+  function updateStatus(id, status) {
+    const subs = getSubmissions();
+    const idx = subs.findIndex(s => s.id === id);
+    if (idx === -1) return;
+    subs[idx].status = status;
+    saveSubmissions(subs);
+    renderDashboard();
+    showToast(status === 'published' ? 'Article published to Scholarship page.' : status === 'rejected' ? 'Submission marked as rejected.' : 'Status updated.');
+  }
+
+  function deleteSubmission(id) {
+    if (!confirm('Permanently delete this submission? This cannot be undone.')) return;
+    const subs = getSubmissions().filter(s => s.id !== id);
+    saveSubmissions(subs);
+    renderDashboard();
+    showToast('Submission deleted.');
+  }
+
+  function downloadPdf(id) {
+    const sub = getSubmissions().find(s => s.id === id);
+    if (!sub || !sub.pdfData) { showToast('PDF not available for this submission.'); return; }
+    const a = document.createElement('a');
+    a.href = sub.pdfData;
+    a.download = sub.fileName || 'manuscript.pdf';
+    a.click();
+  }
+
+  // ── RENDER ────────────────────────────────────────────────────────────────
+  let activeFilter = 'all';
+
+  function setFilter(f, btn) {
+    activeFilter = f;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderList();
+  }
+
+  function renderDashboard() {
+    renderStats();
+    renderList();
+  }
+
+  function renderStats() {
+    const subs = getSubmissions();
+    const pending = subs.filter(s => s.status === 'pending').length;
+    const published = subs.filter(s => s.status === 'published').length;
+    const rejected = subs.filter(s => s.status === 'rejected').length;
+    document.getElementById('statsRow').innerHTML = `
+      <div class="stat-pill total"><div class="num">${subs.length}</div><div class="lbl">Total<br>Submissions</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-pill pending"><div class="num">${pending}</div><div class="lbl">Pending<br>Review</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-pill published"><div class="num">${published}</div><div class="lbl">Published</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-pill rejected"><div class="num">${rejected}</div><div class="lbl">Rejected</div></div>
+    `;
+  }
+
+  function renderList() {
+    const subs = getSubmissions();
+    const filtered = activeFilter === 'all' ? subs : subs.filter(s => s.status === activeFilter);
+    const container = document.getElementById('submissionsList');
+
+    if (filtered.length === 0) {
+      container.innerHTML = `<div class="empty-dash"><h3>No submissions</h3><p>${activeFilter === 'all' ? 'No manuscripts have been submitted yet.' : `No ${activeFilter} submissions.`}</p></div>`;
+      return;
+    }
+
+    // Sort: pending first, then by date desc
+    const sorted = [...filtered].sort((a, b) => {
+      if (a.status === 'pending' && b.status !== 'pending') return -1;
+      if (b.status === 'pending' && a.status !== 'pending') return 1;
+      return new Date(b.submittedAt) - new Date(a.submittedAt);
+    });
+
+    container.innerHTML = `<div class="submissions-list">${sorted.map(s => {
+      const date = new Date(s.submittedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      const actions = s.status === 'pending'
+        ? `<button class="action-btn publish" onclick="updateStatus('${s.id}','published')">Publish</button>
+           <button class="action-btn reject" onclick="updateStatus('${s.id}','rejected')">Reject</button>`
+        : s.status === 'published'
+        ? `<button class="action-btn unpublish" onclick="updateStatus('${s.id}','pending')">Unpublish</button>`
+        : `<button class="action-btn unpublish" onclick="updateStatus('${s.id}','pending')">Restore</button>`;
+
+      const dlBtn = s.pdfData
+        ? `<button class="action-btn download" onclick="downloadPdf('${s.id}')">Download PDF</button>`
+        : `<button class="action-btn download" style="opacity:.4;cursor:not-allowed;" disabled>No PDF</button>`;
+
+      return `
+        <div class="sub-card">
+          <div>
+            <div class="sub-top">
+              <span class="sub-status ${s.status}">${s.status}</span>
+              <span class="sub-cat">${s.category || '—'}</span>
+              <span class="sub-date">${date}</span>
+            </div>
+            <div class="sub-title">${s.title}</div>
+            <div class="sub-author">${s.name} &nbsp;·&nbsp; <span class="sub-email">${s.email}</span></div>
+            ${s.abstract ? `<div class="sub-abstract">${s.abstract}</div>` : ''}
+          </div>
+          <div class="sub-actions">
+            ${actions}
+            ${dlBtn}
+            <button class="action-btn delete" onclick="deleteSubmission('${s.id}')">Delete</button>
+          </div>
+        </div>`;
+    }).join('')}</div>`;
+  }
+
+  // ── TOAST ─────────────────────────────────────────────────────────────────
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // ── INIT ──────────────────────────────────────────────────────────────────
+  if (sessionStorage.getItem('plr_admin') === '1') renderDashboard();
+</script>
+</body>
+</html>

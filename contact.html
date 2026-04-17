@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — UMBC Pre-Law Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #fdb515; --gold-dk: #d99a00; --black: #111111; --charcoal: #1c1c1c;
+      --ink: #1a1a1a; --red: #C8102E; --white: #ffffff; --off-white: #f8f5ef;
+      --fog: #f2efe8; --muted: #666666; --border: #e0d9ce; --green: #1a6b3a;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'EB Garamond', Georgia, serif; background: var(--white); color: var(--ink); line-height: 1.6; }
+
+    /* ── UTILITY BAR ── */
+    .utility-bar { background: #faf8f4; border-bottom: 1px solid var(--border); color: #888; font-family: 'Inter', sans-serif; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; padding: .42rem 2rem; display: flex; justify-content: space-between; }
+    .utility-bar a { color: #888; text-decoration: none; transition: color .2s; }
+    .utility-bar a:hover { color: var(--gold-dk); }
+    .utility-bar .sep { margin: 0 .7rem; opacity: .35; }
+
+    /* ── MASTHEAD ── */
+    .masthead { background: #ffffff; padding: 1.5rem 2rem 1.3rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid var(--gold); }
+    .masthead-brand { display: flex; align-items: center; gap: 1.3rem; text-decoration: none; }
+    .masthead-logo { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
+    .masthead-text .pre { font-family: 'Inter', sans-serif; font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: .12rem; }
+    .masthead-text h1 { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 900; color: var(--black); line-height: 1.1; }
+    .masthead-text h1 em { font-style: italic; color: var(--gold-dk); }
+    .masthead-actions { display: flex; gap: .7rem; }
+    .btn { display: inline-block; padding: .52rem 1.25rem; font-family: 'Inter', sans-serif; font-size: .76rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; border-radius: 2px; cursor: pointer; transition: all .2s; border: none; }
+    .btn-gold { background: var(--gold); color: var(--black); }
+    .btn-gold:hover { background: var(--gold-dk); }
+    .btn-outline { background: transparent; color: var(--black); border: 1.5px solid rgba(0,0,0,.25); }
+    .btn-outline:hover { border-color: var(--gold-dk); color: var(--gold-dk); }
+
+    /* ── NAV ── */
+    nav.primary { background: var(--charcoal); border-bottom: 1px solid rgba(253,181,21,.2); position: sticky; top: 0; z-index: 100; }
+    nav.primary ul { list-style: none; display: flex; max-width: 1200px; margin: 0 auto; padding: 0 2rem; align-items: center; }
+    nav.primary ul li a { display: block; padding: .82rem 1.05rem; font-family: 'Inter', sans-serif; font-size: .76rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: #bbb; text-decoration: none; border-bottom: 3px solid transparent; transition: color .2s, border-color .2s; }
+    nav.primary ul li a:hover, nav.primary ul li a.active { color: var(--gold); border-bottom-color: var(--gold); }
+    nav.primary ul li.spacer { flex: 1; }
+    .nav-search { background: none; border: 1px solid rgba(255,255,255,.18); color: var(--white); padding: .38rem .8rem; font-family: 'Inter', sans-serif; font-size: .76rem; border-radius: 2px; outline: none; width: 170px; }
+    .nav-search::placeholder { color: rgba(255,255,255,.3); }
+    .nav-search:focus { border-color: var(--gold); }
+
+    /* ── PAGE HERO ── */
+    .page-hero { background: #f8f5ef; padding: 4rem 2rem 3.5rem; text-align: center; border-bottom: 3px solid var(--gold); }
+    .page-hero .eyebrow { font-family: 'Inter', sans-serif; font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-dk); display: flex; align-items: center; justify-content: center; gap: .8rem; margin-bottom: 1.2rem; }
+    .page-hero .eyebrow::before, .page-hero .eyebrow::after { content: ''; width: 32px; height: 1px; background: var(--gold-dk); opacity: .6; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; color: var(--black); line-height: 1.1; margin-bottom: .8rem; }
+    .page-hero h1 em { font-style: italic; color: var(--gold-dk); }
+    .page-hero p { font-size: 1.05rem; color: #666; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── PAGE BODY ── */
+    .page-body { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem 5rem; display: flex; flex-direction: column; gap: 4rem; }
+
+    /* ── SECTION HEADER ── */
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; border-bottom: 2px solid var(--gold); padding-bottom: .75rem; margin-bottom: 2rem; }
+    .section-header h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; }
+
+    /* ── CONTACT FORM ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-grid .full { grid-column: 1 / -1; }
+    .form-group label { display: block; font-family: 'Inter', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); margin-bottom: .42rem; }
+    .form-group label .req { color: var(--red); margin-left: .15rem; }
+    .form-control { width: 100%; padding: .68rem .9rem; font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--ink); background: var(--white); border: 1.5px solid var(--border); border-radius: 2px; outline: none; transition: border-color .2s; }
+    .form-control:focus { border-color: var(--gold); }
+    .form-control.error { border-color: var(--red); }
+    .form-control::placeholder { color: #bbb; }
+    textarea.form-control { resize: vertical; min-height: 130px; line-height: 1.65; }
+    select.form-control { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .9rem center; padding-right: 2.5rem; cursor: pointer; }
+    .field-error { font-family: 'Inter', sans-serif; font-size: .7rem; color: var(--red); margin-top: .28rem; display: none; }
+    .field-error.visible { display: block; }
+    .form-actions { display: flex; align-items: center; gap: 1rem; margin-top: .4rem; flex-wrap: wrap; }
+    .btn-submit { background: var(--gold); color: var(--black); font-size: .8rem; padding: .7rem 2rem; font-weight: 700; }
+    .btn-submit:hover { background: var(--gold-dk); }
+    .form-note { font-family: 'Inter', sans-serif; font-size: .72rem; color: var(--muted); }
+
+    /* success */
+    .success-card { display: none; border: 1px solid #b6e6c9; border-left: 4px solid var(--green); background: #f0faf5; padding: 2rem 2rem 1.8rem; border-radius: 2px; }
+    .success-card.visible { display: block; }
+    .success-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: .4rem; }
+    .success-card p { font-size: .98rem; color: #444; line-height: 1.7; }
+
+    /* ── SUBMISSION INQUIRIES ── */
+    .inquiries-box { background: var(--off-white); border: 1px solid var(--border); border-left: 4px solid var(--gold); padding: 2rem 2.2rem; display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; }
+    .inquiries-box .iq-text h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: .4rem; }
+    .inquiries-box .iq-text p { font-size: .98rem; color: var(--muted); line-height: 1.7; }
+    .inquiries-box .iq-text p a { color: var(--gold-dk); text-decoration: none; font-weight: 600; }
+    .inquiries-box .iq-text p a:hover { text-decoration: underline; }
+    .iq-action .btn-black { background: var(--black); color: var(--white); }
+    .iq-action .btn-black:hover { background: var(--charcoal); }
+
+    /* ── CONNECT / SOCIAL ── */
+    .connect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .social-card { border: 1px solid var(--border); padding: 2rem 1.8rem; display: flex; flex-direction: column; align-items: center; text-align: center; text-decoration: none; color: var(--ink); transition: border-color .25s, transform .2s, box-shadow .2s; cursor: pointer; }
+    .social-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 6px 24px rgba(0,0,0,.07); }
+    .social-icon-wrap { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; transition: background .2s; }
+    .social-card:hover .social-icon-wrap { background: var(--gold) !important; }
+    .social-card:hover .social-icon-wrap svg { fill: var(--black) !important; stroke: var(--black) !important; }
+    .social-card .sc-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: .2rem; }
+    .social-card .sc-handle { font-family: 'Inter', sans-serif; font-size: .75rem; color: var(--muted); margin-bottom: .6rem; }
+    .social-card .sc-desc { font-family: 'Inter', sans-serif; font-size: .76rem; color: var(--muted); line-height: 1.5; }
+    /* instagram gradient icon bg */
+    .ig-bg { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+    /* email icon bg */
+    .em-bg { background: var(--black); }
+    /* linkedin icon bg */
+    .li-bg { background: #0a66c2; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--charcoal); border-top: 3px solid var(--gold); }
+    .footer-main { max-width: 1200px; margin: 0 auto; padding: 3.5rem 2rem 2rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
+    .footer-brand .masthead-logo { width: 56px; height: 56px; margin-bottom: .9rem; }
+    .footer-brand h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--white); }
+    .footer-brand h3 em { font-style: italic; color: var(--gold); }
+    .footer-brand p { font-family: 'Inter', sans-serif; font-size: .77rem; color: rgba(255,255,255,.4); line-height: 1.6; margin-top: .65rem; max-width: 240px; }
+    .footer-col h4 { font-family: 'Inter', sans-serif; font-size: .66rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; padding-bottom: .45rem; border-bottom: 1px solid rgba(253,181,21,.22); }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: .45rem; }
+    .footer-col ul li a { font-family: 'Inter', sans-serif; font-size: .78rem; color: rgba(255,255,255,.5); text-decoration: none; transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.1rem 2rem; border-top: 1px solid rgba(255,255,255,.07); display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-family: 'Inter', sans-serif; font-size: .7rem; color: rgba(255,255,255,.28); }
+    .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 860px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .full { grid-column: 1; }
+      .inquiries-box { grid-template-columns: 1fr; }
+      .connect-grid { grid-template-columns: 1fr 1fr; }
+      .footer-main { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .masthead { flex-direction: column; gap: 1rem; align-items: flex-start; }
+      .masthead-actions { display: none; }
+      .utility-bar .right { display: none; }
+      .page-hero h1 { font-size: 2rem; }
+      .connect-grid { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- UTILITY BAR -->
+<div class="utility-bar">
+  <div class="left">Volume I &nbsp;<span class="sep">|</span>&nbsp; 2024–2025 &nbsp;<span class="sep">|</span>&nbsp; University of Maryland, Baltimore County</div>
+  <div class="right">
+    <a href="submissions.html">Submit a Manuscript</a>
+    <span class="sep">|</span>
+    <a href="about.html#board">Editorial Board</a>
+    <span class="sep">|</span>
+    <a href="mailto:submissions@umbcprelawreview.com">Contact</a>
+  </div>
+</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <a href="index.html" class="masthead-brand">
+    <img src="brand_assets/logo.png" alt="UMBC Pre-Law Review Seal" class="masthead-logo" />
+    <div class="masthead-text">
+      <div class="pre">University of Maryland, Baltimore County</div>
+      <h1>Pre-Law <em>Review</em></h1>
+    </div>
+  </a>
+  <div class="masthead-actions">
+    <a href="submissions.html" class="btn btn-gold">Submit</a>
+    <a href="index.html" class="btn btn-outline">← Home</a>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="primary" aria-label="Main navigation">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="scholarship.html">Scholarship</a></li>
+    <li><a href="issues.html">Issues</a></li>
+    <li><a href="submissions.html">Submissions</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+    <li class="spacer"></li>
+    <li><input type="search" class="nav-search" placeholder="Search articles…" /></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="eyebrow">Get in Touch</div>
+  <h1>Contact <em>Us</em></h1>
+  <p>Questions, feedback, or just want to connect? We'd love to hear from you.</p>
+</section>
+
+<div class="page-body">
+
+  <!-- ① CONTACT FORM -->
+  <section>
+    <div class="section-header">
+      <h2>Send Us a Message</h2>
+    </div>
+
+    <!-- Success message (hidden until submit) -->
+    <div class="success-card" id="successCard">
+      <h3>Message Sent</h3>
+      <p>Thank you for reaching out. A member of the editorial team will get back to you within 2–3 business days.</p>
+    </div>
+
+    <form id="contactForm" novalidate>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="contactName">Full Name <span class="req">*</span></label>
+          <input type="text" id="contactName" class="form-control" placeholder="Your full name" />
+          <div class="field-error" id="err-contactName">Please enter your name.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="contactEmail">Email Address <span class="req">*</span></label>
+          <input type="email" id="contactEmail" class="form-control" placeholder="your@email.com" />
+          <div class="field-error" id="err-contactEmail">Please enter a valid email address.</div>
+        </div>
+
+        <div class="form-group full">
+          <label for="contactSubject">Subject <span class="req">*</span></label>
+          <select id="contactSubject" class="form-control">
+            <option value="">— Select a subject —</option>
+            <option>General Inquiry</option>
+            <option>Submission Inquiry</option>
+            <option>Editorial Question</option>
+            <option>Other</option>
+          </select>
+          <div class="field-error" id="err-contactSubject">Please select a subject.</div>
+        </div>
+
+        <div class="form-group full">
+          <label for="contactMessage">Message <span class="req">*</span></label>
+          <textarea id="contactMessage" class="form-control" placeholder="Write your message here…"></textarea>
+          <div class="field-error" id="err-contactMessage">Please enter a message (at least 10 characters).</div>
+        </div>
+
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-submit">Send Message</button>
+        <span class="form-note">We respond within 2–3 business days.</span>
+      </div>
+    </form>
+  </section>
+
+  <!-- ② SUBMISSION INQUIRIES -->
+  <section>
+    <div class="section-header">
+      <h2>Submission Inquiries</h2>
+    </div>
+    <div class="inquiries-box">
+      <div class="iq-text">
+        <h3>Questions About Submitting a Manuscript?</h3>
+        <p>
+          For all manuscript-related questions — including formatting requirements, deadlines, review status, and co-authorship — please direct your inquiry to
+          <a href="mailto:submissions@umbcprelawreview.com">submissions@umbcprelawreview.com</a>.
+          You can also visit our dedicated submissions page for full guidelines and to submit your work directly.
+        </p>
+      </div>
+      <div class="iq-action">
+        <a href="submissions.html" class="btn btn-black btn">Submission Guidelines →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ CONNECT WITH US -->
+  <section>
+    <div class="section-header">
+      <h2>Connect With Us</h2>
+    </div>
+    <div class="connect-grid">
+
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/umbc.lawreview" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="Follow us on Instagram">
+        <div class="social-icon-wrap ig-bg">
+          <!-- Instagram SVG -->
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="white" stroke-width="2" fill="none"/>
+            <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="2" fill="none"/>
+            <circle cx="17.5" cy="6.5" r="1.2" fill="white"/>
+          </svg>
+        </div>
+        <div class="sc-name">Instagram</div>
+        <div class="sc-handle">@umbc.lawreview</div>
+        <div class="sc-desc">Follow us for updates, announcements, and behind-the-scenes content from the editorial team.</div>
+      </a>
+
+      <!-- Email -->
+      <a href="mailto:submissions@umbcprelawreview.com" class="social-card" aria-label="Email us">
+        <div class="social-icon-wrap em-bg">
+          <!-- Email SVG -->
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="4" width="20" height="16" rx="2" stroke="white" stroke-width="2" fill="none"/>
+            <polyline points="2,4 12,13 22,4" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="sc-name">Email</div>
+        <div class="sc-handle">submissions@umbcprelawreview.com</div>
+        <div class="sc-desc">Reach the editorial board directly for submissions, questions, or collaboration inquiries.</div>
+      </a>
+
+      <!-- UMBC -->
+      <a href="https://www.umbc.edu" target="_blank" rel="noopener noreferrer" class="social-card" aria-label="Visit UMBC">
+        <div class="social-icon-wrap" style="background:var(--gold);">
+          <!-- UMBC shield / graduation cap icon -->
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#000" stroke-width="2" stroke-linejoin="round" fill="none"/>
+            <path d="M2 17c0 2.76 4.48 5 10 5s10-2.24 10-5" stroke="#000" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <line x1="2" y1="7" x2="2" y2="17" stroke="#000" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="sc-name">UMBC</div>
+        <div class="sc-handle">umbc.edu</div>
+        <div class="sc-desc">Learn more about the University of Maryland, Baltimore County — our academic home.</div>
+      </a>
+
+    </div>
+  </section>
+
+</div><!-- /page-body -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img src="brand_assets/logo.png" alt="UMBC Pre-Law Review" class="masthead-logo" />
+      <h3>UMBC Pre-Law <em>Review</em></h3>
+      <p>A student-run journal of legal scholarship at the University of Maryland, Baltimore County.</p>
+    </div>
+    <div class="footer-col"><h4>Journal</h4><ul>
+      <li><a href="index.html">Current Issue</a></li>
+      <li><a href="scholarship.html">All Articles</a></li>
+      <li><a href="issues.html">Archive</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Organization</h4><ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="about.html#board">Editorial Board</a></li>
+      <li><a href="submissions.html">Submit</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="mailto:submissions@umbcprelawreview.com">submissions@umbcprelawreview.com</a></li>
+      <li><a href="https://www.instagram.com/umbc.lawreview" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 UMBC Pre-Law Review. All rights reserved. &nbsp;·&nbsp; <a href="#">Privacy Policy</a></p>
+    <p>University of Maryland, Baltimore County · Baltimore, MD 21250</p>
+  </div>
+</footer>
+
+<script>
+  function showError(id, show) {
+    document.getElementById('err-' + id)?.classList.toggle('visible', show);
+    document.getElementById(id)?.classList.toggle('error', show);
+  }
+
+  document.getElementById('contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name    = document.getElementById('contactName').value.trim();
+    const email   = document.getElementById('contactEmail').value.trim();
+    const subject = document.getElementById('contactSubject').value;
+    const message = document.getElementById('contactMessage').value.trim();
+
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    showError('contactName',    !name);
+    showError('contactEmail',   !emailOk);
+    showError('contactSubject', !subject);
+    showError('contactMessage', message.length < 10);
+
+    if (!name || !emailOk || !subject || message.length < 10) return;
+
+    // Store in localStorage for admin visibility (optional)
+    try {
+      const msgs = JSON.parse(localStorage.getItem('plr_messages') || '[]');
+      msgs.push({ name, email, subject, message, sentAt: new Date().toISOString() });
+      localStorage.setItem('plr_messages', JSON.stringify(msgs));
+    } catch (_) {}
+
+    this.style.display = 'none';
+    document.getElementById('successCard').classList.add('visible');
+    window.scrollTo({ top: document.getElementById('successCard').offsetTop - 120, behavior: 'smooth' });
+  });
+
+  // nav search
+  document.querySelector('.nav-search') && document.querySelector('.nav-search').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && this.value.trim())
+      location.href = 'scholarship.html?q=' + encodeURIComponent(this.value.trim());
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submissions — UMBC Pre-Law Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #fdb515; --gold-dk: #d99a00; --black: #111111; --charcoal: #1c1c1c;
+      --ink: #1a1a1a; --red: #C8102E; --white: #ffffff; --off-white: #f8f5ef;
+      --fog: #f2efe8; --muted: #666666; --border: #e0d9ce; --green: #1a6b3a;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'EB Garamond', Georgia, serif; background: var(--white); color: var(--ink); line-height: 1.6; }
+
+    /* ── UTILITY BAR ── */
+    .utility-bar { background: #faf8f4; border-bottom: 1px solid var(--border); color: #888; font-family: 'Inter', sans-serif; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; padding: .42rem 2rem; display: flex; justify-content: space-between; }
+    .utility-bar a { color: #888; text-decoration: none; transition: color .2s; }
+    .utility-bar a:hover { color: var(--gold-dk); }
+    .utility-bar .sep { margin: 0 .7rem; opacity: .35; }
+
+    /* ── MASTHEAD ── */
+    .masthead { background: #ffffff; padding: 1.5rem 2rem 1.3rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid var(--gold); }
+    .masthead-brand { display: flex; align-items: center; gap: 1.3rem; text-decoration: none; }
+    .masthead-logo { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
+    .masthead-text .pre { font-family: 'Inter', sans-serif; font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: .12rem; }
+    .masthead-text h1 { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 900; color: var(--black); line-height: 1.1; }
+    .masthead-text h1 em { font-style: italic; color: var(--gold-dk); }
+    .masthead-actions { display: flex; gap: .7rem; }
+    .btn { display: inline-block; padding: .52rem 1.25rem; font-family: 'Inter', sans-serif; font-size: .76rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; border-radius: 2px; cursor: pointer; transition: all .2s; border: none; }
+    .btn-gold { background: var(--gold); color: var(--black); }
+    .btn-gold:hover { background: var(--gold-dk); }
+    .btn-outline { background: transparent; color: var(--black); border: 1.5px solid rgba(0,0,0,.25); }
+    .btn-outline:hover { border-color: var(--gold-dk); color: var(--gold-dk); }
+
+    /* ── NAV ── */
+    nav.primary { background: var(--charcoal); border-bottom: 1px solid rgba(253,181,21,.2); position: sticky; top: 0; z-index: 100; }
+    nav.primary ul { list-style: none; display: flex; max-width: 1200px; margin: 0 auto; padding: 0 2rem; align-items: center; }
+    nav.primary ul li a { display: block; padding: .82rem 1.05rem; font-family: 'Inter', sans-serif; font-size: .76rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: #bbb; text-decoration: none; border-bottom: 3px solid transparent; transition: color .2s, border-color .2s; }
+    nav.primary ul li a:hover, nav.primary ul li a.active { color: var(--gold); border-bottom-color: var(--gold); }
+    nav.primary ul li.spacer { flex: 1; }
+    .nav-search { background: none; border: 1px solid rgba(255,255,255,.18); color: var(--white); padding: .38rem .8rem; font-family: 'Inter', sans-serif; font-size: .76rem; border-radius: 2px; outline: none; width: 170px; }
+    .nav-search::placeholder { color: rgba(255,255,255,.3); }
+    .nav-search:focus { border-color: var(--gold); }
+
+    /* ── PAGE HERO ── */
+    .page-hero { background: #f8f5ef; padding: 4rem 2rem 3.5rem; text-align: center; border-bottom: 3px solid var(--gold); }
+    .page-hero .eyebrow { font-family: 'Inter', sans-serif; font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-dk); display: flex; align-items: center; justify-content: center; gap: .8rem; margin-bottom: 1.2rem; }
+    .page-hero .eyebrow::before, .page-hero .eyebrow::after { content: ''; width: 32px; height: 1px; background: var(--gold-dk); opacity: .6; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; color: var(--black); line-height: 1.1; margin-bottom: .8rem; }
+    .page-hero h1 em { font-style: italic; color: var(--gold-dk); }
+    .page-hero p { font-size: 1.05rem; color: #666; max-width: 560px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── MAIN LAYOUT ── */
+    .submissions-layout { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: 1fr 360px; gap: 4rem; align-items: start; }
+
+    /* ── FORM PANEL ── */
+    .form-panel h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: .4rem; }
+    .form-panel .subtitle { font-size: 1rem; color: var(--muted); margin-bottom: 2rem; line-height: 1.6; }
+    .form-group { margin-bottom: 1.4rem; }
+    .form-group label { display: block; font-family: 'Inter', sans-serif; font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); margin-bottom: .45rem; }
+    .form-group label span.req { color: var(--red); margin-left: .2rem; }
+    .form-control { width: 100%; padding: .7rem .9rem; font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--ink); background: var(--white); border: 1.5px solid var(--border); border-radius: 2px; outline: none; transition: border-color .2s; }
+    .form-control:focus { border-color: var(--gold); }
+    .form-control.error { border-color: var(--red); }
+    .form-control::placeholder { color: #bbb; }
+    textarea.form-control { resize: vertical; min-height: 110px; line-height: 1.6; }
+    select.form-control { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .9rem center; padding-right: 2.5rem; cursor: pointer; }
+
+    /* file upload */
+    .file-upload-wrap { position: relative; }
+    .file-input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .file-display { width: 100%; padding: .7rem .9rem; font-family: 'Inter', sans-serif; font-size: .82rem; color: var(--muted); background: var(--fog); border: 1.5px dashed var(--border); border-radius: 2px; display: flex; align-items: center; gap: .6rem; cursor: pointer; transition: border-color .2s; min-height: 48px; }
+    .file-display:hover { border-color: var(--gold); }
+    .file-display.has-file { color: var(--ink); background: var(--white); border-style: solid; border-color: var(--gold); }
+    .file-display svg { flex-shrink: 0; }
+    .file-hint { font-family: 'Inter', sans-serif; font-size: .72rem; color: var(--muted); margin-top: .4rem; }
+
+    .field-error { font-family: 'Inter', sans-serif; font-size: .72rem; color: var(--red); margin-top: .3rem; display: none; }
+    .field-error.visible { display: block; }
+
+    .form-submit-row { display: flex; align-items: center; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+    .btn-submit { background: var(--gold); color: var(--black); font-size: .82rem; padding: .7rem 2rem; }
+    .btn-submit:hover { background: var(--gold-dk); }
+    .btn-submit:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+    .submit-note { font-family: 'Inter', sans-serif; font-size: .72rem; color: var(--muted); }
+
+    /* ── SUCCESS MESSAGE ── */
+    .success-card { display: none; border: 1px solid #b6e6c9; border-left: 4px solid var(--green); background: #f0faf5; padding: 2.5rem; border-radius: 2px; }
+    .success-card.visible { display: block; }
+    .success-icon { width: 48px; height: 48px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .success-icon svg { fill: white; width: 24px; height: 24px; }
+    .success-card h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: .5rem; color: var(--ink); }
+    .success-card p { font-size: 1rem; color: #444; line-height: 1.7; margin-bottom: .5rem; }
+    .success-card .ref { font-family: 'Inter', sans-serif; font-size: .78rem; color: var(--muted); margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #d0ead8; }
+    .success-card .ref strong { color: var(--ink); }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 5.5rem; }
+    .sidebar-card { border: 1px solid var(--border); border-top: 3px solid var(--gold); padding: 1.8rem; margin-bottom: 1.5rem; background: var(--off-white); }
+    .sidebar-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: .6rem; border-bottom: 1px solid var(--border); }
+    .guideline-list { list-style: none; }
+    .guideline-list li { font-family: 'Inter', sans-serif; font-size: .8rem; color: #444; padding: .5rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .6rem; line-height: 1.5; }
+    .guideline-list li:last-child { border-bottom: none; }
+    .guideline-list li::before { content: '—'; color: var(--gold-dk); flex-shrink: 0; font-weight: 700; }
+    .deadline-card { background: var(--black); color: var(--white); border: none; }
+    .deadline-card h3 { color: var(--white); border-bottom-color: rgba(253,181,21,.3); }
+    .deadline-card p { font-family: 'Inter', sans-serif; font-size: .82rem; color: rgba(255,255,255,.65); line-height: 1.6; margin-bottom: .8rem; }
+    .deadline-card .deadline-date { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--gold); margin-bottom: .3rem; }
+    .deadline-card .deadline-label { font-family: 'Inter', sans-serif; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.4); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--charcoal); border-top: 3px solid var(--gold); }
+    .footer-main { max-width: 1200px; margin: 0 auto; padding: 3.5rem 2rem 2rem; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; }
+    .footer-brand .masthead-logo { width: 56px; height: 56px; margin-bottom: .9rem; }
+    .footer-brand h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--white); }
+    .footer-brand h3 em { font-style: italic; color: var(--gold); }
+    .footer-brand p { font-family: 'Inter', sans-serif; font-size: .77rem; color: rgba(255,255,255,.4); line-height: 1.6; margin-top: .65rem; max-width: 240px; }
+    .footer-col h4 { font-family: 'Inter', sans-serif; font-size: .66rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; padding-bottom: .45rem; border-bottom: 1px solid rgba(253,181,21,.22); }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: .45rem; }
+    .footer-col ul li a { font-family: 'Inter', sans-serif; font-size: .78rem; color: rgba(255,255,255,.5); text-decoration: none; transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 1.1rem 2rem; border-top: 1px solid rgba(255,255,255,.07); display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-family: 'Inter', sans-serif; font-size: .7rem; color: rgba(255,255,255,.28); }
+    .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+    /* ── ANNOUNCEMENT BANNER ── */
+    .announce-banner { background: var(--gold); color: var(--black); padding: .65rem 2rem; text-align: center; font-family: 'Inter', sans-serif; font-size: .8rem; font-weight: 600; letter-spacing: .04em; border-bottom: 1px solid var(--gold-dk); }
+    .announce-banner span { opacity: .7; margin: 0 .6rem; }
+
+    @media (max-width: 960px) {
+      .submissions-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .footer-main { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .masthead { flex-direction: column; gap: 1rem; align-items: flex-start; }
+      .masthead-actions { display: none; }
+      .footer-main { grid-template-columns: 1fr; }
+      .utility-bar .right { display: none; }
+      .page-hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="utility-bar">
+  <div class="left">Volume I &nbsp;<span class="sep">|</span>&nbsp; 2024–2025 &nbsp;<span class="sep">|</span>&nbsp; University of Maryland, Baltimore County</div>
+  <div class="right">
+    <a href="scholarship.html">Scholarship</a>
+    <span class="sep">|</span><a href="about.html#board">Editorial Board</a>
+    <span class="sep">|</span><a href="mailto:umbcprelawreview@umbc.edu">Contact</a>
+  </div>
+</div>
+
+<header class="masthead">
+  <a href="index.html" class="masthead-brand">
+    <img src="brand_assets/logo.png" alt="UMBC Pre-Law Review Seal" class="masthead-logo" />
+    <div class="masthead-text">
+      <div class="pre">University of Maryland, Baltimore County</div>
+      <h1>Pre-Law <em>Review</em></h1>
+    </div>
+  </a>
+  <div class="masthead-actions">
+    <a href="submissions.html" class="btn btn-gold">Submit</a>
+    <a href="index.html" class="btn btn-outline">← Home</a>
+  </div>
+</header>
+
+<nav class="primary" aria-label="Main navigation">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="scholarship.html">Scholarship</a></li>
+    <li><a href="issues.html">Issues</a></li>
+    <li><a href="submissions.html" class="active">Submissions</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li class="spacer"></li>
+    <li><input type="search" class="nav-search" placeholder="Search articles…" /></li>
+  </ul>
+</nav>
+
+<div class="announce-banner" id="announceBanner">Loading…</div>
+
+<section class="page-hero">
+  <div class="eyebrow">Submit Your Work</div>
+  <h1>Manuscript <em>Submissions</em></h1>
+  <p>We welcome original legal scholarship from all UMBC undergraduates. Articles, essays, notes, and comments on any area of law are considered.</p>
+</section>
+
+<div class="submissions-layout" id="guidelines">
+  <!-- FORM PANEL -->
+  <div class="form-panel">
+    <h2>Submit a Manuscript</h2>
+    <p class="subtitle">Complete the form below. All fields marked <span style="color:var(--red);">*</span> are required. You will receive a confirmation after submission.</p>
+
+    <!-- SUCCESS CARD (hidden until submit) -->
+    <div class="success-card" id="successCard">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+      </div>
+      <h3>Submission Received</h3>
+      <p>Thank you for submitting your manuscript to the UMBC Pre-Law Review. Our editorial board will review your work and respond within 6–8 weeks.</p>
+      <p>Please do not resubmit the same article during the review period.</p>
+      <div class="ref">
+        Submission reference: <strong id="successRef"></strong><br />
+        Submitted: <strong id="successDate"></strong>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <form id="submissionForm" novalidate>
+      <div class="form-group">
+        <label for="authorName">Author Name <span class="req">*</span></label>
+        <input type="text" id="authorName" class="form-control" placeholder="Full legal name" />
+        <div class="field-error" id="err-authorName">Please enter your full name.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="authorEmail">UMBC Email Address <span class="req">*</span></label>
+        <input type="email" id="authorEmail" class="form-control" placeholder="username@umbc.edu" />
+        <div class="field-error" id="err-authorEmail">Please enter a valid @umbc.edu email address.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="articleTitle">Article Title <span class="req">*</span></label>
+        <input type="text" id="articleTitle" class="form-control" placeholder="Full title of your manuscript" />
+        <div class="field-error" id="err-articleTitle">Please enter your article title.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category <span class="req">*</span></label>
+        <select id="category" class="form-control">
+          <option value="">— Select a category —</option>
+          <option>Constitutional Law</option>
+          <option>Criminal Law</option>
+          <option>Administrative Law</option>
+          <option>Civil Rights</option>
+          <option>Intellectual Property</option>
+          <option>International Law</option>
+          <option>Corporate Law</option>
+          <option>Environmental Law</option>
+          <option>Immigration Law</option>
+          <option>Family Law</option>
+          <option>Other</option>
+        </select>
+        <div class="field-error" id="err-category">Please select a category.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="abstract">Abstract <span class="req">*</span></label>
+        <textarea id="abstract" class="form-control" placeholder="Provide a 150–300 word abstract summarizing your argument, methodology, and conclusions."></textarea>
+        <div class="field-error" id="err-abstract">Please provide an abstract (at least 50 characters).</div>
+      </div>
+
+      <div class="form-group">
+        <label>Manuscript PDF <span class="req">*</span></label>
+        <div class="file-upload-wrap">
+          <input type="file" class="file-input" id="pdfFile" accept=".pdf" />
+          <div class="file-display" id="fileDisplay">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+            <span id="fileLabel">Click to upload PDF (max 4 MB)</span>
+          </div>
+        </div>
+        <div class="file-hint">Accepted format: PDF only. Bluebook citations required.</div>
+        <div class="field-error" id="err-pdfFile">Please upload your manuscript as a PDF (max 4 MB).</div>
+      </div>
+
+      <div class="form-submit-row">
+        <button type="submit" class="btn btn-submit" id="submitBtn">Submit Manuscript</button>
+        <span class="submit-note">Review period: 6–8 weeks</span>
+      </div>
+    </form>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-card deadline-card">
+      <h3>Submission Window</h3>
+      <div class="deadline-date" id="sidebarDeadline">To Be Announced</div>
+      <div class="deadline-label" id="sidebarIssueLabel">Volume I, Issue 1</div>
+      <p style="margin-top:.8rem;">Submissions received after the deadline will be considered for the following issue.</p>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Submission Guidelines</h3>
+      <ul class="guideline-list">
+        <li>Open to all UMBC undergraduate students in any major</li>
+        <li>Co-authored submissions are welcome</li>
+        <li>Word count: 5,000–20,000 words (including footnotes)</li>
+        <li>Bluebook (21st ed.) citation format required</li>
+        <li>Double-spaced, Times New Roman 12pt, 1-inch margins</li>
+        <li>Include a 150–300 word abstract</li>
+        <li>Remove all identifying information from the manuscript (blind review)</li>
+        <li>Submit as a single PDF file (max 4 MB)</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Review Process</h3>
+      <ul class="guideline-list">
+        <li>All submissions undergo double-blind peer review</li>
+        <li>Decisions communicated within 6–8 weeks</li>
+        <li>Authors may be asked to revise and resubmit</li>
+        <li>Simultaneous submissions to other journals are discouraged</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card" style="background:var(--fog);">
+      <h3>Questions?</h3>
+      <ul class="guideline-list">
+        <li>Email us at <a href="mailto:umbcprelawreview@umbc.edu" style="color:var(--gold-dk);">umbcprelawreview@umbc.edu</a></li>
+        <li>Response within 2–3 business days</li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <img src="brand_assets/logo.png" alt="UMBC Pre-Law Review" class="masthead-logo" />
+      <h3>UMBC Pre-Law <em>Review</em></h3>
+      <p>A student-run journal of legal scholarship at the University of Maryland, Baltimore County.</p>
+    </div>
+    <div class="footer-col"><h4>Journal</h4><ul>
+      <li><a href="index.html">Current Issue</a></li>
+      <li><a href="scholarship.html">All Articles</a></li>
+      <li><a href="issues.html">Archive</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Organization</h4><ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="about.html#board">Editorial Board</a></li>
+      <li><a href="submissions.html">Join Our Team</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Authors</h4><ul>
+      <li><a href="submissions.html">Submit</a></li>
+      <li><a href="submissions.html#guidelines">Guidelines</a></li>
+      <li><a href="mailto:umbcprelawreview@umbc.edu">Contact Editors</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 UMBC Pre-Law Review. All rights reserved. &nbsp;·&nbsp; <a href="#">Privacy Policy</a></p>
+    <p>University of Maryland, Baltimore County · Baltimore, MD 21250</p>
+  </div>
+</footer>
+
+<script src="data/articles.js"></script>
+<script>
+  // ── DYNAMIC BANNER ────────────────────────────────────────────────────────
+  (function () {
+    const articles = (typeof ARTICLES !== 'undefined') ? ARTICLES : [];
+    const banner = document.getElementById('announceBanner');
+    const deadlineEl = document.getElementById('sidebarDeadline');
+    const issueLabelEl = document.getElementById('sidebarIssueLabel');
+
+    if (articles.length === 0) {
+      banner.innerHTML = 'Be Part of History &mdash; Submit to Our Inaugural Issue <span>·</span> Volume I &middot; Issue 1 &middot; Spring 2026';
+      deadlineEl.textContent = 'To Be Announced';
+      issueLabelEl.textContent = 'Volume I, Issue 1';
+      return;
+    }
+
+    // Find highest published vol/issue
+    let maxVol = 1, maxIss = 1;
+    articles.forEach(a => {
+      const v = parseInt(a.volume, 10) || 1;
+      const i = parseInt(a.issue, 10) || 1;
+      if (v > maxVol || (v === maxVol && i > maxIss)) { maxVol = v; maxIss = i; }
+    });
+
+    // Next issue
+    const nextIss = maxIss + 1;
+    const nextVol = maxVol;
+
+    const toRoman = n => ['I','II','III','IV','V','VI','VII','VIII','IX','X'][n - 1] || n;
+    const volRoman = toRoman(maxVol);
+    const nextVolRoman = toRoman(nextVol);
+
+    banner.innerHTML = `Volume ${volRoman} &middot; Issue ${maxIss} is Published <span>&mdash;</span> Now Shaping Issue ${nextIss}, Coming Soon`;
+    deadlineEl.textContent = 'To Be Announced';
+    issueLabelEl.textContent = `Volume ${nextVolRoman}, Issue ${nextIss}`;
+  })();
+
+  // ── FILE UPLOAD DISPLAY ───────────────────────────────────────────────────
+  const pdfInput = document.getElementById('pdfFile');
+  const fileDisplay = document.getElementById('fileDisplay');
+  const fileLabel = document.getElementById('fileLabel');
+
+  pdfInput.addEventListener('change', () => {
+    const file = pdfInput.files[0];
+    if (file) {
+      fileDisplay.classList.add('has-file');
+      fileLabel.textContent = `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+    } else {
+      fileDisplay.classList.remove('has-file');
+      fileLabel.textContent = 'Click to upload PDF (max 4 MB)';
+    }
+  });
+
+  // ── VALIDATION ────────────────────────────────────────────────────────────
+  function showError(id, visible) {
+    const el = document.getElementById('err-' + id);
+    el.classList.toggle('visible', visible);
+    document.getElementById(id)?.classList.toggle('error', visible);
+  }
+
+  function validateForm() {
+    let valid = true;
+    const name = document.getElementById('authorName').value.trim();
+    const email = document.getElementById('authorEmail').value.trim();
+    const title = document.getElementById('articleTitle').value.trim();
+    const cat = document.getElementById('category').value;
+    const abs = document.getElementById('abstract').value.trim();
+    const file = pdfInput.files[0];
+
+    showError('authorName', !name);
+    if (!name) valid = false;
+
+    const emailOk = /^[^\s@]+@umbc\.edu$/i.test(email);
+    showError('authorEmail', !emailOk);
+    if (!emailOk) valid = false;
+
+    showError('articleTitle', !title);
+    if (!title) valid = false;
+
+    showError('category', !cat);
+    if (!cat) valid = false;
+
+    showError('abstract', abs.length < 50);
+    if (abs.length < 50) valid = false;
+
+    const fileOk = file && file.type === 'application/pdf' && file.size <= 4 * 1024 * 1024;
+    showError('pdfFile', !fileOk);
+    if (!fileOk) valid = false;
+
+    return valid;
+  }
+
+  // ── SUBMIT ────────────────────────────────────────────────────────────────
+  document.getElementById('submissionForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    const file = pdfInput.files[0];
+
+    // Read PDF as base64
+    const reader = new FileReader();
+    reader.onload = () => {
+      const submission = {
+        id: 'sub-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7),
+        name: document.getElementById('authorName').value.trim(),
+        email: document.getElementById('authorEmail').value.trim(),
+        title: document.getElementById('articleTitle').value.trim(),
+        category: document.getElementById('category').value,
+        abstract: document.getElementById('abstract').value.trim(),
+        fileName: file.name,
+        pdfData: reader.result,
+        status: 'pending',
+        submittedAt: new Date().toISOString()
+      };
+
+      // Save to localStorage
+      try {
+        const existing = JSON.parse(localStorage.getItem('plr_submissions') || '[]');
+        existing.push(submission);
+        localStorage.setItem('plr_submissions', JSON.stringify(existing));
+      } catch (err) {
+        // localStorage full — save without PDF data
+        const existing = JSON.parse(localStorage.getItem('plr_submissions') || '[]');
+        existing.push({ ...submission, pdfData: null, fileName: file.name + ' (PDF not stored — storage limit)' });
+        localStorage.setItem('plr_submissions', JSON.stringify(existing));
+      }
+
+      // Show success
+      document.getElementById('submissionForm').style.display = 'none';
+      const card = document.getElementById('successCard');
+      card.classList.add('visible');
+      document.getElementById('successRef').textContent = submission.id;
+      document.getElementById('successDate').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      window.scrollTo({ top: document.getElementById('successCard').offsetTop - 100, behavior: 'smooth' });
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // nav search
+  document.querySelector('.nav-search') && document.querySelector('.nav-search').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && this.value.trim())
+      location.href = 'scholarship.html?q=' + encodeURIComponent(this.value.trim());
+  });
+</script>
+</body>
+</html>
